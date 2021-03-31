@@ -1,0 +1,459 @@
+;; Задача №2 Определите функцию, возвращающую последний элемент списка. 
+
+(defun last1 (x) 
+
+     (cond 
+
+        ((null x) nil) 
+
+             ((null (cdr x)) (car x)) 
+
+       (t (last1 (cdr x))))) 
+
+ (print (last1 '(a b c))) 
+
+(print (last1 '(1 3 5))) 
+
+(print (last1 '(c 6 l))) 
+
+;; Ответ: 
+
+;; C  
+
+;; 5  
+
+;; L 
+
+ 
+
+;; Задача №6 Определите функцию, переводящую список чисел в список соответствующих им названий 
+
+(defun num-txt (lst) 
+
+   (let ((res)) 
+
+    (dolist (a lst res) 
+
+     (setq res (append res (list (nth a `(ноль один два три четыре пять шесть семь восемь девять))))) 
+
+         ) 
+
+       ) 
+
+     ) 
+
+ (print(num-txt `(6 9 3))) 
+
+(print(num-txt `(5 1 8))) 
+
+(print(num-txt `(7 2 4))) 
+
+;; Ответ:  
+
+;; (ШЕСТЬ ДЕВЯТЬ ТРИ)  
+
+;; (ПЯТЬ ОДИН ВОСЕМЬ)  
+
+;; (СЕМЬ ДВА ЧЕТЫРЕ) 
+
+ 
+
+ 
+
+ 
+
+ 
+
+;; Задача № 11  
+
+;; Определите функцию, осуществляющую разделение исходного списка на два подсписка.  
+
+;; В первый из них должно попасть указанное количество элементов с начала списка, во второй — оставшиеся элементы. 
+
+ (defun divide-by-two (list x) 
+
+  (if list 
+
+    (if (zerop x) 
+
+     (cons nil  (cons list nil)) 
+
+     ((lambda (elem answer)  
+
+       (cons  
+
+           (cons elem (car answer))  
+
+           (cdr answer))) 
+
+      (car list)  
+
+    (divide-by-two (cdr list) (1- x)))))) 
+
+ 
+
+  (print (divide-by-two '(A B C D E) 0)) 
+
+  (print (divide-by-two '(A B C D E) 3)) 
+
+  (print (divide-by-two '(A B C D E) 5)) 
+
+  
+
+;; Ответ:  
+
+;; (NIL (A B C D E))  
+
+;; ((A B C) (D E))  
+
+;; ((A B C D E))  
+
+  
+
+  
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+;; Задача № 7  
+
+;; Определите функцию, удаляющую из исходного списка элементы с четными номерами. 
+
+ (defun del-even (lst) ( 
+
+                       cond ((null lst) nil) 
+
+                       (t 
+
+                            (cons (car lst) 
+
+                                (del-even(cddr lst)) 
+
+                                    ) 
+
+                         ) 
+
+            ) 
+
+) 
+
+  
+
+(print(del-even '(1 2 3 4 5 6))) 
+
+(print(del-even '(1))) 
+
+(print(del-even '())) 
+
+;; Ответ: 
+
+;; (1 3 5)  
+
+;; (1)  
+
+;; NIL 
+
+ 
+
+  
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+;;  Задача № 15 
+
+;; Определите функцию, вычисляющую скалярное произведение векторов, заданных списками целых чисел. 
+
+(defun scal-prod (lst1 lst2) 
+
+        (if (or (null lst1)(null lst2)) 0 
+
+            (+ (* (car lst1) (car lst2)) (scal-prod (cdr lst1) (cdr lst2))) 
+
+             ) 
+
+) 
+
+  
+
+(print(scal-prod '(1 2 3) '(1 2 3))) 
+
+(print(scal-prod '(0) '(1 2 3))) 
+
+  
+
+;; Ответ: 
+
+;; 14 
+
+;; 0 
+
+ 
+
+ 
+
+;; Задача №23 Определите функции, преобразующие список (a b с) к виду (а (b (с))) и наоборот. 
+
+(defun fun (x) 
+
+(if (null x) 
+
+x 
+
+(let ((head (first x)) (tail (rest x))) 
+
+(if (null tail) (list head) (list head (fun tail)))))) 
+
+(print ( fun `(a b c))) 
+
+;; Ответ: 
+
+;; (А (B ( C ))) 
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+;; Задача №33 . Определите функцию МНОЖЕСТВО, преобразующую список в множество. 
+
+(defun list1(elem lst) 
+
+    (cond((NULL lst) NIL) 
+
+      ((eq elem (car lst))t) 
+
+       (t (list1 elem (cdr lst)))	 
+
+             ) 
+
+      ) 
+
+  
+
+(defun setlist (lst) 
+
+     ((lambda(l1 l2) 
+
+         (cond ((NULL lst) NIL) 
+
+((list1 l1 l2) (setlist l2)) 
+
+(t (cons l1 (setlist l2))) 
+
+) 
+
+) 
+
+  (car lst) (cdr lst))	 
+
+) 
+
+(print (setlist '(1 1 3 4 7 1 4 6 8))) 
+
+(print (setlist '(3 4 7 3 4 9 9 8))) 
+
+(print (setlist '(2 2 2 3 4 7 8 4 6))) 
+
+;; Ответ: 
+
+;; (3 7 1 4 6 8)  
+
+;; (7 3 4 9 8)  
+
+;; (2 3 7 8 4 6) 
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+;; Задача № 35 Определите функцию ПОДМНОЖЕСТВО, которая проверяет, является ли одно мно- жество подмножеством другого. Определите также СОБСТВЕННОЕ-ПОДМНОЖЕСТВО 
+
+(defun sub (x y) 
+
+  (cond ((null x) t) 
+
+        ((member (car x) y) (sub (cdr x) y)) 
+
+        (t nil)))   
+
+  
+
+ (print(sub'(1 2 3) '(6 7 4 9 5))) 
+
+(print(sub '(a b c) '(d e z y a d c b))) 
+
+;; Ответы:  
+
+;; NIL  
+
+;; T 
+
+ 
+
+;; Задача 39 Определите функцию ОБЪЕДИНЕНИЕ, формирующую объединение двух множеств. 
+
+(defun UNION1 (x y) 
+
+  (cond ((null x) y) 
+
+        (t (cons (car x) (UNION1 (remove (car x) (cdr x)) 
+
+                                     (remove (car x) y)))))) 
+
+                                    
+
+(print ( UNION1 '( 1 2 3 4) '( 4 7 8 9))) 
+
+(print ( UNION1 '( a d f) '( z b c r o))) 
+
+;;  Ответы: 
+
+;; (1 2 3 4 7 8 9)  
+
+;; (A D F Z B C R O) 
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+;; Задача №46  Предположим, что отец и мать некоторого лица, хранятся как значения соответствующих свойств у символа, обозначающего это лицо. Напишите функцию (РОДИТЕЛИ x), которая возвращает в качестве значения родителей, и предикат (СЕСТРЫ-БРАТЬЯ x1 x2), который истинен в случае, если x1 и x2 - сестры или братья, родные или с одним общим родителем. 
+
+(defun set-parents(child mother father) 
+
+    (setf (get child 'M) mother) 
+
+    (setf (get child 'F) father) 
+
+) 
+
+  
+
+(defun ÐÎÄÈÒÅËÈ(child) 
+
+    (list (get-mother child) (get-father child)) 
+
+) 
+
+  
+
+(defun get-father(child) 
+
+    (get child 'F) 
+
+) 
+
+  
+
+(defun get-mother(child) 
+
+    (get child 'M) 
+
+) 
+
+  
+
+(defun Определение (child1 child2) 
+
+    (cond 
+
+        ( 
+
+(eq (get-mother child1) (get-mother child2)) T 
+
+) 
+
+        ( 
+
+(eq (get-father child1) (get-father child2)) T 
+
+) 
+
+        (T NIL) 
+
+    ) 
+
+) 
+
+(set-parents 'CHILD_1 'MOTHER_1 'FATHER_1) 
+
+(set-parents 'CHILD_2 'MOTHER_2 'FATHER_2) 
+
+(set-parents 'CHILD_3 'MOTHER_2 'FATHER_1) 
+
+(set-parents 'CHILD_4 'MOTHER_3 'FATHER_3) 
+
+  
+
+(print ( Определение 'CHILD_1 'CHILD_2)) 
